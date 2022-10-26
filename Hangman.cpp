@@ -4,6 +4,39 @@
 using namespace std;
 
 
+int draw(int lives) {
+    int i;
+    cout << "===============" << endl;
+    cout << "===          0 " << endl;
+    cout << "==          ";
+    if (lives >= 3) {
+    cout << "/";
+    }
+    else {
+    cout << " ";
+    }
+    if (lives >= 2) {
+    cout << "\\";
+    }
+    if (lives >= 4) {
+    cout << "-";
+    }
+    cout << endl;
+    cout << "==          ";
+    if (lives >= 6) {
+        cout << " \\";
+    }
+    else {
+        cout << "  ";
+    }
+    if (lives >= 5) {
+        cout << "/";
+    }
+    cout << endl;
+    for (i=0;i<4;i++) {
+        cout << "==" << endl;
+    }
+}
 
 int main () {
     bool prevGuessed = false;
@@ -13,7 +46,7 @@ int main () {
     int gameLost = 0;
     int i2;
     int bannedLettersCounter = 0;
-    char discovered[10];
+    char discovered[37];
     char bannedLetters[6];
     char easyWords[][10] = {
 
@@ -29,7 +62,8 @@ int main () {
         {"pen"},
         {"cool"},
         {"sans"},
-        {"cheats"}
+        {"cheats"},
+        {"derp"},
 
     };
     char mediumWords[][15] = {
@@ -44,14 +78,15 @@ int main () {
         {"leaving"}
 
     };
-    char hardWords[][20] = {
+    char hardWords[][37] = {
         {"phenomenon"},
         {"onomatopeia"},
         {"worcestershire"},
         {"colonel"},
         {"draught"},
         {"quinoa"},
-        {"anemone"}
+        {"anemone"},
+        {"hippopotomonstrosesquippedaliophobia"}
     };
     char a;
     char filler;
@@ -62,13 +97,13 @@ int main () {
     int lives = 6;
     int i;
     int phraseLength = 0;
-    char phrase[20];
+    char phrase[37];
     bool validInput = false;
     while (1) {
         i=0;
         while (validInput != true) {
+            system("CLS");
             if (gameWon > 0 || gameLost > 0) {
-                system("CLS");
                 cout << "Scores:    Won: " << gameWon << endl;
                 cout << "          Lost: " << gameLost << endl;
             }
@@ -86,6 +121,16 @@ int main () {
                 case '2':
                 system("CLS");
                 validInput = false;
+                cout << "=====================" << endl;
+                cout << "Project created by:" << endl;
+                cout << "NezzNH" << endl;
+                cout << "Suggestion: " << endl;
+                cout << "Rabbid05" << endl;
+                cout << "Cereal entrepenour:" << endl;
+                cout << "Eltjo" << endl;
+                cout << "=====================" << endl;
+                cin >> filler;
+                filler = '0';
                 break;
 
                 default:
@@ -124,12 +169,13 @@ int main () {
 
                 case '3':
                 validInput = true;
-                break;
-                i2 = rand() % 7;
+                i2 = rand() % 8;
                 for (i=0;hardWords[i2][i] != '\0';i++) {
                     phrase[i] = hardWords[i2][i];
                     phraseLength++;
                 }
+                break;
+
                 default:
                 a = '0';
                 system("CLS");
@@ -148,6 +194,8 @@ int main () {
             while (1) {
                 guessed = false;
                 system("CLS");
+                draw(lives);
+                cout << endl;
                 cout << "Last Letter: " << letter << endl;
                 cout << "Lives: " << lives << endl;
                 for (i=0;i<phraseLength;i++) {
@@ -176,7 +224,7 @@ int main () {
                 cout << "Input a letter:";
                 cin >> letter;
                 if (letter >= 0x41 && letter <= 0x5A) {
-                    
+                    letter += 0x20;
                 }
 
                 for (i=0;i<=phraseLength;i++) {
@@ -243,6 +291,7 @@ int main () {
 
         }
         else {
+            phraseLength = 0;
             cout << "YOU'VE WON!" << endl;
             cout << "Where's the confetti? Why this is a terminal program of course!" << endl;
             cout << "1. Go Back To Menu" << endl;
